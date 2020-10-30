@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rock Paper Scissors</title>
+  <meta charset="UTF-8"/>
+</head>
+<body style="color: cornflowerblue; background-color: black;">
+  <h1>Rock Paper Scissors</h1>
+  <script>
+    "use strict";
+
+
+
+    // Create a function to return a random computer selection
+    function computerPlay() {
+      let options = ["Rock", "Paper", "Scissors"];
+      let randomOption = Math.floor(Math.random() * 3);
+      return options[randomOption];
+    }
+   
+
+    // Create a function to collect player selection
+    function humanPlay() {
+      let playerChoices = prompt("Rock, Paper, or Scissors?").toLowerCase();
+      return playerChoices;
+    }
+
+    // Variables used in next function
+    let playerSelection
+    let computerSelection
+
+
+    // Create a function to play a round of Rock Paper Scissors and return the result
+    function playRound(computerPlay, humanPlay) {
+      playerSelection = humanPlay();
+      computerSelection = computerPlay();
+      if (playerSelection === "rock") {
+        if (computerSelection === "Scissors") {
+          return "You win! Rock beats Scissors";
+        } else if (computerSelection === "Paper") {
+          return "You lose! Paper beats Rock";
+        } else {
+          return "Tie!";
+        }
+      } else if (playerSelection === "paper") {
+        if (computerSelection === "Scissors") {
+          return "You lose! Scissors beats Paper";
+        } else if (computerSelection === "Paper") {
+          return "Tie!";
+        } else {
+          return "You win! Paper beats Rock!";
+        }
+      } else if (playerSelection === "scissors") {
+        if (computerSelection === "Scissors") {
+          return "Tie!";
+        } else if (computerSelection === "Paper") {
+          return "You win! Scissors beats Paper";
+        } else {
+          return "You lose! Rock beats Scissors!";
+        }
+      } else {
+        return "Invalid selection.";
+      }
+    }
+
+    // Create a function to play a desired number of rounds and report the results
+    function playGames(rounds) {
+      let computerWins = 0; 
+      let playerWins = 0;
+      let ties = 0;
+    
+      for (let i = 0; i < rounds; i++) {
+        let round = i+1;
+
+        let gameResult = playRound(computerPlay, humanPlay);
+        console.log("Round " + round + "\n" + "Human plays " + playerSelection + " : Computer plays " + computerSelection + " \n" + gameResult)
+        
+        if (gameResult.slice(4,5) === "w") {
+          playerWins++;
+        } else if (gameResult.slice(4,5) === "l") {
+          computerWins++;
+        } else {
+          ties++;
+        }
+      }
+
+      if (playerWins > computerWins) {
+        return ("You win! Total score: " + playerWins + " to " + computerWins + " with " + ties + " draw(s).");
+      } else if (playerWins < computerWins) {
+        return ("You lose! Total score: " + playerWins + " to " + computerWins + " with " + ties + " draw(s).");
+      } else {
+        return ("Series Draw! Total score: " + playerWins + " to " + computerWins + " with " + ties + " draw(s).");
+      }
+    }
+
+    // Plays 5 games and reports results to the console.
+    console.log(playGames(5));
+
+  </script>
+</body>
+</html>
